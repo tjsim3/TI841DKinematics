@@ -1,0 +1,276 @@
+ClrHome
+Lbl MAIN
+Disp "KINEMATICS CALCULATOR"
+Disp "1=SOLVE XI"
+Disp "2=SOLVE X"
+Disp "3=SOLVE VI"
+Disp "4=SOLVE V"
+Disp "5=SOLVE A"
+Disp "6=SOLVE T"
+Disp "0=EXIT"
+Input C
+If C=0
+Goto END
+If C=1
+Goto XI
+If C=2
+Goto X
+If C=3
+Goto VI
+If C=4
+Goto V
+If C=5
+Goto A
+If C=6
+Goto T
+
+Lbl XI
+ClrHome
+Disp "SOLVE XI"
+Disp "1=x,vi,a,t"
+Disp "2=x,vi,v,t"
+Disp "3=x,v,vi,a"
+Input S
+If S=1
+Then
+Input "X",X
+Input "VI",VI
+Input "A",A
+Input "T",T
+X-(VI*T+.5*A*T^2)→XI
+Disp "XI=",XI
+End
+If S=2
+Then
+Input "X",X
+Input "VI",VI
+Input "V",V
+Input "T",T
+X-.5*(VI+V)*T→XI
+Disp "XI=",XI
+End
+If S=3
+Then
+Input "X",X
+Input "V",V
+Input "VI",VI
+Input "A",A
+If A=0
+Then
+Disp "ERROR: A=0"
+Goto MAIN
+End
+X-(V^2-VI^2)/(2*A)→XI
+Disp "XI=",XI
+End
+Pause
+Goto MAIN
+
+Lbl X
+ClrHome
+Disp "SOLVE X"
+Disp "1=xi,vi,a,t"
+Disp "2=xi,vi,v,t"
+Disp "3=xi,v,vi,a"
+Input S
+If S=1
+Then
+Input "XI",XI
+Input "VI",VI
+Input "A",A
+Input "T",T
+XI+VI*T+.5*A*T^2→X
+Disp "X=",X
+End
+If S=2
+Then
+Input "XI",XI
+Input "VI",VI
+Input "V",V
+Input "T",T
+XI+.5*(VI+V)*T→X
+Disp "X=",X
+End
+If S=3
+Then
+Input "XI",XI
+Input "V",V
+Input "VI",VI
+Input "A",A
+If A=0
+Then
+Disp "ERROR: A=0"
+Goto MAIN
+End
+(V^2-VI^2)/(2*A)+XI→X
+Disp "X=",X
+End
+Pause
+Goto MAIN
+
+Lbl VI
+ClrHome
+Disp "SOLVE VI"
+Disp "1=x,xi,a,t"
+Disp "2=v,a,t"
+Disp "3=v,a,xi,x"
+Input S
+If S=1
+Then
+Input "X",X
+Input "XI",XI
+Input "A",A
+Input "T",T
+If T=0
+Then
+Disp "ERROR: T=0"
+Goto MAIN
+End
+(X-XI-.5*A*T^2)/T→VI
+Disp "VI=",VI
+End
+If S=2
+Then
+Input "V",V
+Input "A",A
+Input "T",T
+V-A*T→VI
+Disp "VI=",VI
+End
+If S=3
+Then
+Input "V",V
+Input "A",A
+Input "XI",XI
+Input "X",X
+V^2-2*A*(X-XI)→D
+If D<0
+Then
+Disp "NO REAL SOLUTION"
+Goto MAIN
+End
+√(D)→VI
+Disp "VI=",VI
+End
+Pause
+Goto MAIN
+
+Lbl V
+ClrHome
+Disp "SOLVE V"
+Disp "1=vi,a,t"
+Disp "2=vi,a,xi,x"
+Input S
+If S=1
+Then
+Input "VI",VI
+Input "A",A
+Input "T",T
+VI+A*T→V
+Disp "V=",V
+End
+If S=2
+Then
+Input "VI",VI
+Input "A",A
+Input "XI",XI
+Input "X",X
+VI^2+2*A*(X-XI)→D
+If D<0
+Then
+Disp "NO REAL SOLUTION"
+Goto MAIN
+End
+√(D)→V
+Disp "V=",V
+End
+Pause
+Goto MAIN
+
+Lbl A
+ClrHome
+Disp "SOLVE A"
+Disp "1=v,vi,t"
+Disp "2=v,vi,xi,x"
+Input S
+If S=1
+Then
+Input "V",V
+Input "VI",VI
+Input "T",T
+If T=0
+Then
+Disp "ERROR: T=0"
+Goto MAIN
+End
+(V-VI)/T→A
+Disp "A=",A
+End
+If S=2
+Then
+Input "V",V
+Input "VI",VI
+Input "XI",XI
+Input "X",X
+If X=XI
+Then
+Disp "ERROR: X=XI"
+Goto MAIN
+End
+(V^2-VI^2)/(2*(X-XI))→A
+Disp "A=",A
+End
+Pause
+Goto MAIN
+
+Lbl T
+ClrHome
+Disp "SOLVE T"
+Disp "1=v,vi,a"
+Disp "2=x,xi,vi,a"
+Input S
+If S=1
+Then
+Input "V",V
+Input "VI",VI
+Input "A",A
+If A=0
+Then
+Disp "ERROR: A=0"
+Goto MAIN
+End
+(V-VI)/A→T
+Disp "T=",T
+End
+If S=2
+Then
+Input "X",X
+Input "XI",XI
+Input "VI",VI
+Input "A",A
+If A=0
+Then
+If VI=0
+Then
+Disp "ERROR: A=0 AND VI=0"
+Goto MAIN
+End
+(X-XI)/VI→T
+Disp "T=",T
+Else
+VI^2+2*A*(X-XI)→D
+If D<0
+Then
+Disp "NO REAL SOLUTION"
+Goto MAIN
+End
+(-VI+√(D))/A→T
+Disp "T=",T
+End
+End
+Pause
+Goto MAIN
+
+Lbl END
+ClrHome
+Disp "GOODBYE"
